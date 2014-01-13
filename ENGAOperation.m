@@ -53,10 +53,6 @@
     NSString *endpoint = ENGA_ENDPOINT_SSL;
 #endif
     NSString *userAgent = self.requestParams[@(kReservedUserAgentKey)];
-    NSDictionary *userHeaders = self.requestParams[@(kReservedUserDefinedHeaderKey)];
-    for (NSString *key in userHeaders) {
-
-    }
     NSMutableArray *keyValuePairs = [NSMutableArray arrayWithCapacity:[self.rawParams count]];
     for (NSString *key in self.rawParams) {
         id value = self.rawParams[key];
@@ -69,6 +65,10 @@
     [request addValue:userAgent forHTTPHeaderField:@"User-Agent"];
     for (NSString *headerKey in self.requestHeaders) {
         [request addValue:self.requestHeaders[headerKey] forHTTPHeaderField:headerKey];
+    }
+    NSDictionary *userHeaders = self.requestParams[@(kReservedUserDefinedHeaderKey)];
+    for (NSString *key in userHeaders) {
+        [request addValue:self.requestHeaders[key] forHTTPHeaderField:key];
     }
 #ifdef ENGA_NO_POST
     //  add cache buster to the end of query string for GET requests
