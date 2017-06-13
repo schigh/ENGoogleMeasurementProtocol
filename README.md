@@ -37,7 +37,7 @@ A complete explanation of the Management Protocol and all associated parameters 
 The enumeration of possible keys is defined in `ENGoogleMeasurementProtocol.h`.
 
 ----
-####ENGAManager
+#### ENGAManager
 The `ENGAManager` interface lives as a Singleton within your application.  You can obtain the instance object by calling
 
     [ENGAManager sharedManager]
@@ -53,7 +53,7 @@ Of course you can use any client id scheme you like.
 
 ----
 
-#####Usage
+##### Usage
 There are convenience methods to simplify making requests to the measurement protocol endpoint.
 
 - `- (void) pageView:(NSDictionary *)params;`
@@ -73,7 +73,7 @@ There are convenience methods to simplify making requests to the measurement pro
 - `- (void) timing:(NSDictionary *)params;`
    - User Timing Tracking.  [Param List][timingparams]<br /><br />
 
-######Example
+###### Example
 Track a click event:
 
     [[ENGAManager sharedManager] event:@{
@@ -85,24 +85,24 @@ Track a click event:
     
 This will track that a user selected the "midnight" theme within the settings of an application.  Again, all params are based on the context of what you're trying to do, so refer to `ENGoogleMeasurementProtocol.h` and both the [developer][devguide] and [parameter][paramguide] guides.
 
-####Macros
+#### Macros
 There are a few macros you can set in your application that will alter certain properties within the ENGoogleMeasurementProtocol library.
 <br /><br />
-######`ENGA_NO_SSL`
+###### `ENGA_NO_SSL`
 By default, all requests with the measurement protocol are made over SSL.  Defining this macro will make requests transmit in the clear.
 <br /><br />
-######`ENGA_NO_POST`
+###### `ENGA_NO_POST`
 The recommended method for sending requests is via HTTP POST.  If your application does not support POST, define this macro and all requests will be sent via HTTP GET.  All requests sent ove HTTP GET will have a cache-busting parameter added to the tail of the query string (e.g. `&z=123456789`, so you need not implement your own)
 <br /><br />
-######`ENGA_DEFAULT_QUEUE_PRIORITY`
+###### `ENGA_DEFAULT_QUEUE_PRIORITY`
 The default NSOperationQueue priority is `NSOperationQueuePriorityVeryLow`.  Define and set this macro to any other operation queue priority if you want to change that.  
 
 [NSOperation queue priority reference][queuepriorities]
 <br /><br />
-######`ENGA_DEFAULT_THREAD_PRIORITY`
+###### `ENGA_DEFAULT_THREAD_PRIORITY`
 The thread priority for requests.  Can be any floating point number between `0.0` and `1.0`.  The default is `0.1`.
 <br /><br />
-######`ENGA_USER_PROVIDED_OPQUEUE`
+###### `ENGA_USER_PROVIDED_OPQUEUE`
 The default implementation runs each `ENGAOperation` (NSOperation) as a concurrent process inside the main operation queue (`NSOperationQueue mainQueue]`).  More often than not, these operations will occur on the main thread of your application, depending on the application's current state.
 
 If you wish to manage your own operation queue, you can define this macro.  Note that if you do define this macro, you will need to provide the `ENGAManager` with an operation queue via the `opQueue` property.
